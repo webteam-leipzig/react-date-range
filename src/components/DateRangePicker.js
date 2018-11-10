@@ -13,6 +13,14 @@ class DateRangePicker extends Component {
       focusedRange: [findNextRangeIndex(props.ranges), 0],
     };
     this.styles = generateStyles([coreStyles, props.classNames]);
+    this.handleRangeFocusChange = this.handleRangeFocusChange.bind(this);
+  }
+  handleRangeFocusChange(focusedRange) {
+    this.setState({ focusedRange });
+
+    if (this.props.onRangeFocusChange) {
+      this.props.onRangeFocusChange(focusedRange);
+    }
   }
   render() {
     const { focusedRange } = this.state;
@@ -26,7 +34,7 @@ class DateRangePicker extends Component {
           className={undefined}
         />
         <DateRange
-          onRangeFocusChange={focusedRange => this.setState({ focusedRange })}
+          onRangeFocusChange={this.handleRangeFocusChange}
           focusedRange={focusedRange}
           {...this.props}
           ref={t => (this.dateRange = t)}
