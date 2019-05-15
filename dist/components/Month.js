@@ -75,7 +75,7 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } /* eslint-disable no-fallthrough */
 
 
-function renderWeekdays(styles, dateOptions) {
+function renderWeekdays(styles, displayFormat, dateOptions) {
   var now = new Date();
   return _react2.default.createElement(
     'div',
@@ -87,7 +87,7 @@ function renderWeekdays(styles, dateOptions) {
       return _react2.default.createElement(
         'span',
         { className: styles.weekDay, key: i },
-        (0, _format2.default)(day, 'ddd', dateOptions)
+        (0, _format2.default)(day, displayFormat, dateOptions)
       );
     })
   );
@@ -141,7 +141,7 @@ var Month = function (_PureComponent) {
           { className: styles.monthName },
           (0, _format2.default)(this.props.month, this.props.monthDisplayFormat, this.props.dateOptions)
         ) : null,
-        this.props.showWeekDays && renderWeekdays(styles, this.props.dateOptions),
+        this.props.showWeekDays && renderWeekdays(styles, this.props.weekdaysDisplayFormat, this.props.dateOptions),
         _react2.default.createElement(
           'div',
           { className: styles.days, onMouseLeave: this.props.onMouseLeave },
@@ -184,7 +184,9 @@ var Month = function (_PureComponent) {
   return Month;
 }(_react.PureComponent);
 
-Month.defaultProps = {};
+Month.defaultProps = {
+  weekdaysDisplayFormat: 'ddd'
+};
 
 Month.propTypes = {
   style: _propTypes2.default.object,
